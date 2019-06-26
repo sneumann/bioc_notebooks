@@ -8,11 +8,12 @@ RUN pip install --no-cache-dir notebook==5.*
 
 #It must set up a user whose uid is 1000. on binder we do not allow root container processes.
 ARG NB_USER=biouser
-ARG NB_UID=10000
+ARG NB_UID=1000
 ENV USER ${NB_USER}
 ENV NB_UID ${NB_UID}
 ENV HOME /home/${NB_USER}
 
+RUN bash -c "deluser `id -un 1000` || /bin/true"
 RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
@@ -20,6 +21,9 @@ RUN adduser --disabled-password \
 
 RUN R -e "install.packages('IRkernel')"
 RUN R -e "IRkernel::installspec(user = FALSE)"
+
+## Install dependencies for the vignettes:
+RUN R -e 'BiocManager::install(c("xcms"), dependencies="Suggests")'
     
 # Make sure the contents of our repo are in ${HOME}
 COPY . ${HOME}
@@ -31,7 +35,6 @@ USER ${NB_USER}
 RUN pip install pathlib
 WORKDIR /tmp
 RUN ipyrmd -o xcms.ipynb /usr/local/lib/R/site-library/xcms/doc/xcms.Rmd
-
 
 ## Inherited Dockerfiles may unset the entrypoint 
 ENTRYPOINT []
