@@ -5,7 +5,7 @@ for a subset of the BiocView categories, containing a number of example
 vignettes.
 
 Here we use https://github.com/chronitis/ipyrmd to convert 
-the vignettes to Jupyter Notebooks (*.ipynb).
+the vignettes to Jupyter Notebooks (`*.ipynb`).
 
 ## Launching 
 
