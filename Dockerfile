@@ -7,16 +7,17 @@ ENV USER ${NB_USER}
 ENV NB_UID ${NB_UID}
 ENV HOME /home/${NB_USER}
 
-COPY . ${HOME}
-WORKDIR ${HOME}
-RUN ./prepare4binder.sh
+COPY prepare4binder.sh /tmp
+RUN /tmp/prepare4binder.sh
 
 ## Install dependencies for the vignettes:
 #RUN R -e 'BiocManager::install(c("xcms"), dependencies=T)'
 RUN R -e 'BiocManager::install(c("msPurity", "xcms", "MSnbase"), dependencies=T)'
     
 ## Inherited Dockerfiles may unset the entrypoint 
-RUN ./convertVignettes.sh
+WORKDIR ${HOME}
+COPY convertVignettes.sh /tmp
+RUN /tmp//convertVignettes.sh
 RUN chown -R ${NB_USER} /home/${NB_USER}
 USER ${NB_USER}
 ENTRYPOINT []

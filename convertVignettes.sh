@@ -11,5 +11,5 @@ for F in $(cat /tmp/vignettes.files) ; do
   E="$(basename $F | sed -e 's#.Rmd#.ipynb#')"
   
   mkdir -p "$D"
-  echo ipyrmd -o X"$D/$E"X "$F"
+  ipyrmd -o "$D/$E" "$F"
 done
