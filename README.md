@@ -1,6 +1,6 @@
 ## Using Bioconductor Vignettes as Jupyter Notebooks
 
-The Bioconductor project is (providing Docker containers)[https://github.com/Bioconductor/bioc_docker] 
+The Bioconductor project is [providing Docker containers](https://github.com/Bioconductor/bioc_docker) 
 for a subset of the BiocView categories, containing a number of example
 vignettes.
 
