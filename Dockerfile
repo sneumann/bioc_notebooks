@@ -16,6 +16,7 @@ RUN ./prepare4binder.sh
 RUN R -e 'BiocManager::install(c("msPurity", "xcms", "MSnbase"), dependencies=T)'
     
 ## Inherited Dockerfiles may unset the entrypoint 
-USER ${NB_USER}
 RUN ./convertVignettes.sh
+RUN chmod -R ${NB_USER} /home/${NB_USER}
+USER ${NB_USER}
 ENTRYPOINT []
