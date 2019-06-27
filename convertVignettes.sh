@@ -1,9 +1,15 @@
 #!/bin/bash 
 
-## https://github.com/chronitis/ipyrmd
-pip install ipyrmd
-
 ## Convert Vignettes
-pip install pathlib
 
-ipyrmd -o xcms.ipynb /usr/local/lib/R/site-library/xcms/doc/xcms.Rmd
+for F in xcms msPurity MSnbase ; do 
+  find /usr/local/lib/R/site-library/$F -name *.Rmd
+done >/tmp/vignettes.files
+
+for F in $(cat /tmp/vignettes.files) ; do 
+  D="$(dirname $F | sed -e 's#/usr/local/lib/R/site-library/##' | sed -e 's#/doc#/#' )"
+  E="$(basename $F | sed -e 's#.Rmd#.ipynb#')"
+  
+  mkdir -p "$D"
+  echo ipyrmd -o X"$D/$E"X "$F"
+done

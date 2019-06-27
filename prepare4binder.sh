@@ -3,6 +3,10 @@
 ## https://mybinder.readthedocs.io/en/latest/tutorials/dockerfile.html
 pip install --no-cache-dir notebook==5.*
 
+## https://github.com/chronitis/ipyrmd
+pip install ipyrmd
+pip install pathlib
+
 ## It must set up a user whose uid is 1000. on binder we do not allow root container processes.
 ## 
 deluser `id -un ${NB_UID}` || /bin/true
